@@ -3,6 +3,7 @@ import { Layout } from "antd"
 const { Header, Sider, Content } = Layout
 import { BgColorsOutlined } from "@ant-design/icons"
 import HeaderTop from "@/components/HeaderTop"
+import ComponentsList from "@/components/ComponentsList"
 
 const contentStyle: React.CSSProperties = {
   height: "calc(100vh-64)",
@@ -30,7 +31,7 @@ export default function Home() {
           </Header>
           <Layout style={contentStyle}>
             <Sider width="20%" className="bg-white">
-              Sider
+              <ComponentsList />
             </Sider>
             <Content>Content</Content>
             <Sider width="25%" className="bg-white">

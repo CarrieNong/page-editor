@@ -35,7 +35,7 @@ export default function Home() {
               <ComponentsList />
             </Sider>
             <Content>Content</Content>
-            <Sider width="25%" className="bg-white">
+            <Sider width="27%" className="bg-white">
               <RightSettings />
             </Sider>
           </Layout>

@@ -1,6 +1,6 @@
 import { LeftOutlined } from "@ant-design/icons"
 
-const HeaderTop = () => {
+const HeaderCom = () => {
   return (
     <section className="w-full h-9 flex justify-center items-center relative bg-white">
       <div className="absolute top-2 left-1">
@@ -11,4 +11,4 @@ const HeaderTop = () => {
   )
 }
 
-export default HeaderTop
+export default HeaderCom

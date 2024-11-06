@@ -32,7 +32,10 @@ const componentsList = [
 
 const ComponentsList = () => {
   const listItem = componentsList.map((good) => (
-    <li className="component-item w-2/6 h-28 flex flex-col justify-center items-center">
+    <li
+      key={good.name}
+      className="component-item w-2/6 h-28 flex flex-col justify-center items-center"
+    >
       {good.icon}
       <span className="text-slate-400 mt-2">{good.text}</span>
     </li>

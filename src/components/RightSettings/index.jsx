@@ -21,9 +21,9 @@ const settingList = [
 const RightSettings = () => {
   return (
     <section relative>
-      <Flex vertical gap="small" className="absolute top-5 -left-28">
+      <Flex vertical="true" gap="small" className="absolute top-5 -left-28">
         {settingList.map((setting) => (
-          <Button size="small" icon={setting.icon}>
+          <Button key={setting.name} size="small" icon={setting.icon}>
             {setting.text}
           </Button>
         ))}

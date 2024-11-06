@@ -2,8 +2,9 @@
 import { Layout } from "antd"
 const { Header, Sider, Content } = Layout
 import { BgColorsOutlined } from "@ant-design/icons"
-import HeaderTop from "@/components/HeaderTop"
+import TopMenu from "@/components/TopMenu"
 import ComponentsList from "@/components/ComponentsList"
+import PhonePage from "@/components/PhonePage"
 import RightSettings from "@/components/RightSettings"
 
 const contentStyle: React.CSSProperties = {
@@ -28,13 +29,15 @@ export default function Home() {
         </Sider>
         <Layout>
           <Header className="h-16 bg-white border-solid border-b border-slate-200">
-            <HeaderTop />
+            <TopMenu />
           </Header>
           <Layout style={contentStyle}>
             <Sider width="20%" className="bg-white">
               <ComponentsList />
             </Sider>
-            <Content>Content</Content>
+            <Content>
+              <PhonePage />
+            </Content>
             <Sider width="27%" className="bg-white">
               <RightSettings />
             </Sider>

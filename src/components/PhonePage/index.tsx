@@ -4,6 +4,7 @@ import HeaderCom from "../PhoneComponents/HeaderCom"
 import SearchCom from "../PhoneComponents/SearchCom"
 import TitleCom from "../PhoneComponents/TitleCom"
 import TabCom from "../PhoneComponents/TabCom"
+import ProductCom from "../PhoneComponents/ProductCom"
 import "./index.css"
 
 const PhonePage = () => {
@@ -15,6 +16,7 @@ const PhonePage = () => {
         <SearchCom />
         <TitleCom />
         <TabCom />
+        <ProductCom />
       </div>
     </div>
   )

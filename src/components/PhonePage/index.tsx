@@ -2,6 +2,7 @@ import Image from "next/image"
 import topUrl from "@/app/assets/images/phoneTop.png"
 import HeaderCom from "../PhoneComponents/HeaderCom"
 import SearchCom from "../PhoneComponents/SearchCom"
+import TitleCom from "../PhoneComponents/TitleCom"
 import "./index.css"
 
 const PhonePage = () => {
@@ -11,6 +12,7 @@ const PhonePage = () => {
         <Image src={topUrl} alt="phone" />
         <HeaderCom />
         <SearchCom />
+        <TitleCom />
       </div>
     </div>
   )

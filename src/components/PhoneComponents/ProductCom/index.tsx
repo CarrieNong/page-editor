@@ -1,4 +1,4 @@
-import { Image } from "antd-mobile"
+import { Image, Grid } from "antd-mobile"
 import { BankcardOutline } from "antd-mobile-icons"
 
 const productList = [
@@ -32,26 +32,64 @@ const productList = [
   },
 ]
 
+/*
+  param big/two/three/list/scroll
+*/
+const showMode = "list"
+
+const modeList = {
+  big: 1,
+  two: 2,
+  three: 3,
+  list: 1,
+}
+
+function Card({ product }) {
+  return (
+    <div className={showMode === "list" ? "w-full flex flex-row" : ""}>
+      <div
+        className={
+          showMode === "list" ? "w-1/3 mr-2" : "rounded-sm overflow-hidden"
+        }
+      >
+        <Image src={product.src} width={showMode === "list" ? 112 : ""} />
+      </div>
+      <div className={showMode === "list" ? "w-2/3" : ""}>
+        <div className="py-1">
+          <p className="text-sm truncate">{product.title}</p>
+          <p className="mt-1 text-xs text-slate-400 truncate">{product.desc}</p>
+        </div>
+        <div className="flex justify-between pb-2 items-center px-2">
+          <span className="font-bold">¥{product.price}</span>
+          <span>
+            <BankcardOutline />
+          </span>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const ProductCom = () => {
   return (
     <section className="bg-white p-4">
-      {productList.map((product) => (
-        <div key={product.id}>
-          <div className="rounded-sm overflow-hidden">
-            <Image src={product.src} />
-          </div>
-          <div className="py-1">
-            <p className="text-base">{product.title}</p>
-            <p className="mt-1 text-xs text-slate-400">{product.desc}</p>
-          </div>
-          <div className="flex justify-between pb-2 items-center px-2">
-            <span className="font-bold">¥{product.price}</span>
-            <span>
-              <BankcardOutline />
-            </span>
-          </div>
+      {showMode == "scroll" ? (
+        <div className="flex w-full overflow-x-scroll">
+          {productList.map((product) => (
+            <div className="w-1/4 mr-2" key={product.id}>
+              <Card product={product} />
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <Grid columns={modeList[showMode]} gap={8}>
+          {productList.map((product) => (
+            <Grid.Item key={product.id}>
+              <Card product={product} />
+            </Grid.Item>
+          ))}
+        </Grid>
+      )}
     </section>
   )
 }

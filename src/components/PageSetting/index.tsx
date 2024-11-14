@@ -2,6 +2,12 @@ import { ColorPicker, Checkbox, Form, Input, Radio } from "antd"
 import { useState } from "react"
 import { usePage, usePageDispatch } from "@/app/PageContext"
 
+type FieldType = {
+  title?: string
+  isBack?: boolean
+  isDefaultColor?: string
+}
+
 const PageSetting = () => {
   const page = usePage()
   const dispatch = usePageDispatch()
@@ -19,7 +25,7 @@ const PageSetting = () => {
   }
 
   const changeColor = (value) => {
-    let changeColor = value.metaColor.color
+    let changeColor = value.metaColor.Color
     let newValue = {
       ...page,
       pageSetting: {
@@ -27,6 +33,7 @@ const PageSetting = () => {
         bgColor: changeColor,
       },
     }
+    console.log("newValue", newValue)
     dispatch({
       type: "changed",
       page: newValue,

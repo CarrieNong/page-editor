@@ -1,36 +1,36 @@
 import { ColorPicker, Checkbox, Form, Input, Radio } from "antd"
-import { SetStateAction, useState } from "react"
-
-type FieldType = {
-  title?: string
-  isBack?: boolean
-  isDefaultColor?: string
-}
-
-const initialValues = {
-  title: "页面标题",
-  isBack: true,
-  isDefaultColor: "1",
-}
+import { useState } from "react"
+import { usePage, usePageDispatch } from "@/app/PageContext"
 
 const PageSetting = () => {
-  const [color, setColor] = useState("#f7f8fa")
-  const [isDefaultColor, setIsDefaultColor] = useState("1")
+  const page = usePage()
+  const dispatch = usePageDispatch()
+  // const [color, setColor] = useState(page.pageSetting.bgColor)
 
-  const onValuesChange = (
-    changedValues: {
-      isDefaultColor: SetStateAction<string>
-    },
-    allValues
-  ) => {
-    console.log(allValues)
-    if ("isDefaultColor" in changedValues) {
-      setIsDefaultColor(changedValues.isDefaultColor)
+  const onValuesChange = (changedValues, allValues) => {
+    let newValue = {
+      ...page,
+      pageSetting: allValues,
     }
+    dispatch({
+      type: "changed",
+      page: newValue,
+    })
   }
 
   const changeColor = (value) => {
-    setColor(value.metaColor.Color)
+    let changeColor = value.metaColor.color
+    let newValue = {
+      ...page,
+      pageSetting: {
+        ...page.pageSetting,
+        bgColor: changeColor,
+      },
+    }
+    dispatch({
+      type: "changed",
+      page: newValue,
+    })
   }
 
   return (
@@ -38,7 +38,7 @@ const PageSetting = () => {
       name="basic"
       layout="vertical"
       wrapperCol={{ span: 16 }}
-      initialValues={initialValues}
+      initialValues={page.pageSetting}
       autoComplete="off"
       onValuesChange={onValuesChange}
     >
@@ -62,10 +62,9 @@ const PageSetting = () => {
         <Radio.Group>
           <Radio value="1">默认颜色</Radio>
           <Radio value="2">自定义颜色</Radio>
-          {isDefaultColor == "2" && (
+          {page.pageSetting.isDefaultColor == "2" && (
             <ColorPicker
-              value={color}
-              defaultValue="#1677ff"
+              value={page.pageSetting.bgColor}
               size="small"
               onChange={(value) => {
                 changeColor(value)

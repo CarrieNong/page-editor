@@ -6,6 +6,7 @@ import TopMenu from "@/components/TopMenu"
 import ComponentsList from "@/components/ComponentsList"
 import PhonePage from "@/components/PhonePage"
 import RightSettings from "@/components/RightSettings"
+import { PageProvider } from "./PageContext"
 
 const contentStyle: React.CSSProperties = {
   height: "calc(100vh-64)",
@@ -31,17 +32,19 @@ export default function Home() {
           <Header className="h-16 bg-white border-solid border-b border-slate-200">
             <TopMenu />
           </Header>
-          <Layout style={contentStyle}>
-            <Sider width="20%" className="bg-white">
-              <ComponentsList />
-            </Sider>
-            <Content>
-              <PhonePage />
-            </Content>
-            <Sider width="27%" className="bg-white">
-              <RightSettings />
-            </Sider>
-          </Layout>
+          <PageProvider>
+            <Layout style={contentStyle}>
+              <Sider width="20%" className="bg-white">
+                <ComponentsList />
+              </Sider>
+              <Content>
+                <PhonePage />
+              </Content>
+              <Sider width="27%" className="bg-white">
+                <RightSettings />
+              </Sider>
+            </Layout>
+          </PageProvider>
         </Layout>
       </Layout>
     </div>

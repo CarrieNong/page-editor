@@ -1,4 +1,3 @@
-import type { FormProps } from "antd"
 import { ColorPicker, Checkbox, Form, Input, Radio } from "antd"
 import { SetStateAction, useState } from "react"
 
@@ -7,27 +6,39 @@ type FieldType = {
   isBack?: boolean
   isDefaultColor?: string
 }
+
+const initialValues = {
+  title: "页面标题",
+  isBack: true,
+  isDefaultColor: "1",
+}
+
 const PageSetting = () => {
-  const [color, setColor] = useState("#1677ff")
+  const [color, setColor] = useState("#f7f8fa")
   const [isDefaultColor, setIsDefaultColor] = useState("1")
 
-  const onValuesChange = (changedValues: {
-    isDefaultColor: SetStateAction<string>
-  }) => {
+  const onValuesChange = (
+    changedValues: {
+      isDefaultColor: SetStateAction<string>
+    },
+    allValues
+  ) => {
+    console.log(allValues)
     if ("isDefaultColor" in changedValues) {
       setIsDefaultColor(changedValues.isDefaultColor)
     }
   }
+
+  const changeColor = (value) => {
+    setColor(value.metaColor.Color)
+  }
+
   return (
     <Form
       name="basic"
       layout="vertical"
       wrapperCol={{ span: 16 }}
-      initialValues={{
-        title: "页面标题",
-        isBack: true,
-        isDefaultColor: "1",
-      }}
+      initialValues={initialValues}
       autoComplete="off"
       onValuesChange={onValuesChange}
     >
@@ -56,8 +67,8 @@ const PageSetting = () => {
               value={color}
               defaultValue="#1677ff"
               size="small"
-              onChange={() => {
-                setColor
+              onChange={(value) => {
+                changeColor(value)
               }}
             />
           )}

@@ -26,14 +26,11 @@ export function usePageDispatch() {
 function pageReducer(page, action) {
   switch (action.type) {
     case "added": {
-      return [
+      console.log("componentList", action.componentList)
+      return {
         ...page,
-        {
-          id: action.id,
-          text: action.text,
-          done: false,
-        },
-      ]
+        componentList: action.componentList,
+      }
     }
     case "changed": {
       return { ...page, ...action.page }

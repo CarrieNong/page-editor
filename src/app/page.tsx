@@ -21,6 +21,21 @@ export default function Home() {
     setActiveId(event.active.id)
   }
 
+  function handleDragOver(event) {
+    const { over } = event
+    // if (over) {
+    //   dispatch({
+    //     type: "added",
+    //     componentList: componentList.push({ name: "AddCom" }),
+    //   })
+    // } else {
+    //   dispatch({
+    //     type: "deleted",
+    //     page: newValue,
+    //   })
+    // }
+  }
+
   function handleDragEnd(event) {
     setActiveId(null)
     const { over } = event
@@ -47,7 +62,11 @@ export default function Home() {
           <Header className="h-16 bg-white border-solid border-b border-slate-200">
             <TopMenu />
           </Header>
-          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+          <DndContext
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            onDragOver={handleDragOver}
+          >
             <PageProvider>
               <Layout style={contentStyle}>
                 <Sider width="20%" className="bg-white">

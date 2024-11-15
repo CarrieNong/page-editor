@@ -6,6 +6,7 @@ import {
 } from "@ant-design/icons"
 import { Flex } from "antd"
 import "./index.css"
+import { useDraggable, DragOverlay } from "@dnd-kit/core"
 
 const componentsList = [
   {
@@ -69,20 +70,42 @@ const componentsList = [
   },
 ]
 
-const ComponentsList = () => {
-  const listItem = componentsList.map((good) => (
-    <li
-      key={good.name}
-      className="component-item w-2/6 h-28 flex flex-col justify-center items-center"
-    >
-      {good.icon}
-      <span className="text-slate-400 mt-2">{good.text}</span>
-    </li>
-  ))
+const ComponentsList = ({ activeId }) => {
+  const ListItem = (item) => {
+    const { attributes, listeners, setNodeRef } = useDraggable({
+      id: item.name,
+    })
+    return (
+      <li
+        ref={setNodeRef}
+        key={item.name}
+        className="component-item w-2/6 h-28 flex flex-col justify-center items-center"
+        {...listeners}
+        {...attributes}
+      >
+        {item.icon}
+        <span className="text-slate-400 mt-2">{item.text}</span>
+      </li>
+    )
+  }
+
+  const dragElement = (activeId) => {
+    const data = componentsList.filter((com) => com.name === activeId)
+    return data && data.length ? (
+      <li className="drag-item w-2/6 h-28 flex flex-col justify-center items-center">
+        {data[0].icon}
+        <span className="text-slate-400 mt-2">{data[0].text}</span>
+      </li>
+    ) : null
+  }
+
   return (
-    <div>
-      <Flex wrap>{listItem}</Flex>
-    </div>
+    <section>
+      <div>
+        <Flex wrap>{componentsList.map((item) => ListItem(item))}</Flex>
+      </div>
+      <DragOverlay>{dragElement(activeId)}</DragOverlay>
+    </section>
   )
 }
 

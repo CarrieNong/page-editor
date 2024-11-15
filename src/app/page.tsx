@@ -7,6 +7,8 @@ import ComponentsList from "@/components/ComponentsList"
 import PhonePage from "@/components/PhonePage"
 import RightSettings from "@/components/RightSettings"
 import { PageProvider } from "./PageContext"
+import { DndContext } from "@dnd-kit/core"
+import { useState } from "react"
 
 const contentStyle: React.CSSProperties = {
   height: "calc(100vh-64)",
@@ -14,6 +16,19 @@ const contentStyle: React.CSSProperties = {
 }
 
 export default function Home() {
+  const [activeId, setActiveId] = useState(null)
+  function handleDragStart(event) {
+    setActiveId(event.active.id)
+  }
+
+  function handleDragEnd(event) {
+    setActiveId(null)
+    const { over } = event
+
+    if (over) {
+      console.log("handleDragEnd")
+    }
+  }
   return (
     <div>
       <Layout className="overflow-hidden w-full h-dvh ">
@@ -32,19 +47,21 @@ export default function Home() {
           <Header className="h-16 bg-white border-solid border-b border-slate-200">
             <TopMenu />
           </Header>
-          <PageProvider>
-            <Layout style={contentStyle}>
-              <Sider width="20%" className="bg-white">
-                <ComponentsList />
-              </Sider>
-              <Content>
-                <PhonePage />
-              </Content>
-              <Sider width="27%" className="bg-white">
-                <RightSettings />
-              </Sider>
-            </Layout>
-          </PageProvider>
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <PageProvider>
+              <Layout style={contentStyle}>
+                <Sider width="20%" className="bg-white">
+                  <ComponentsList activeId={activeId} />
+                </Sider>
+                <Content>
+                  <PhonePage />
+                </Content>
+                <Sider width="27%" className="bg-white">
+                  <RightSettings />
+                </Sider>
+              </Layout>
+            </PageProvider>
+          </DndContext>
         </Layout>
       </Layout>
     </div>

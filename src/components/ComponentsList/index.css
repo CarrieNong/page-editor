@@ -8,3 +8,14 @@
         color: #fff;
     }
 }
+
+.drag-item{
+    width: 96px;
+    background: #155bd4;
+    border-radius: 2px;
+    font-weight: 700;
+
+    span {
+        color: #fff;
+    }
+}

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.5.1",
+    "@dnd-kit/core": "^6.1.0",
     "antd": "^5.21.6",
     "antd-mobile": "^5.38.1",
     "antd-mobile-icons": "^0.3.0",

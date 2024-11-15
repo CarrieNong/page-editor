@@ -7,9 +7,13 @@ import TabCom from "../PhoneComponents/TabCom"
 import ProductCom from "../PhoneComponents/ProductCom"
 import "./index.css"
 import { usePage } from "@/app/PageContext"
+import { useDroppable } from "@dnd-kit/core"
 
 const PhonePage = () => {
   const page = usePage()
+  const { setNodeRef } = useDroppable({
+    id: "unique-id",
+  })
 
   return (
     <div className="w-1/2 h-full overflow-y-scroll m-auto content">
@@ -18,6 +22,7 @@ const PhonePage = () => {
         style={{
           backgroundColor: page.pageSetting.bgColor,
         }}
+        ref={setNodeRef}
       >
         <Image src={topUrl} alt="phone" />
         <HeaderCom />

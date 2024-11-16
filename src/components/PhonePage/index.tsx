@@ -1,5 +1,7 @@
 import Image from "next/image"
+import React from "react"
 import topUrl from "@/app/assets/images/phoneTop.png"
+import AddCom from "../PhoneComponents/AddCom"
 import HeaderCom from "../PhoneComponents/HeaderCom"
 import SearchCom from "../PhoneComponents/SearchCom"
 import TitleCom from "../PhoneComponents/TitleCom"
@@ -8,6 +10,14 @@ import ProductCom from "../PhoneComponents/ProductCom"
 import "./index.css"
 import { usePage } from "@/app/PageContext"
 import { useDroppable } from "@dnd-kit/core"
+
+const componentsMap = {
+  AddCom,
+  SearchCom,
+  TitleCom,
+  TabCom,
+  ProductCom,
+}
 
 const PhonePage = () => {
   const page = usePage()
@@ -26,10 +36,10 @@ const PhonePage = () => {
       >
         <Image src={topUrl} alt="phone" />
         <HeaderCom />
-        <SearchCom />
-        <TitleCom />
-        <TabCom />
-        <ProductCom />
+        {page.componentList.map((component, index) => {
+          const Component = componentsMap[component.name]
+          return <Component key={index} />
+        })}
       </div>
     </div>
   )

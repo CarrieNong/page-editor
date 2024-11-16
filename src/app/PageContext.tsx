@@ -26,7 +26,6 @@ export function usePageDispatch() {
 function pageReducer(page, action) {
   switch (action.type) {
     case "added": {
-      console.log("componentList", action.componentList)
       return {
         ...page,
         componentList: action.componentList,
@@ -36,7 +35,10 @@ function pageReducer(page, action) {
       return { ...page, ...action.page }
     }
     case "deleted": {
-      return page.filter((t) => t.id !== action.id)
+      let componentList = page.componentList.filter(
+        (t) => t.name !== action.name
+      )
+      return { ...page, componentList }
     }
     default: {
       throw Error("Unknown action: " + action.type)

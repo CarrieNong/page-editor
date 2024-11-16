@@ -3,6 +3,7 @@ import { Layout } from "antd"
 const { Header, Sider, Content } = Layout
 import { BgColorsOutlined } from "@ant-design/icons"
 import TopMenu from "@/components/TopMenu"
+import DragScale from "@/components/DragScale"
 import ComponentsList from "@/components/ComponentsList"
 import PhonePage from "@/components/PhonePage"
 import RightSettings from "@/components/RightSettings"
@@ -16,34 +17,6 @@ const contentStyle: React.CSSProperties = {
 }
 
 export default function Home() {
-  const [activeId, setActiveId] = useState(null)
-  function handleDragStart(event) {
-    setActiveId(event.active.id)
-  }
-
-  function handleDragOver(event) {
-    const { over } = event
-    // if (over) {
-    //   dispatch({
-    //     type: "added",
-    //     componentList: componentList.push({ name: "AddCom" }),
-    //   })
-    // } else {
-    //   dispatch({
-    //     type: "deleted",
-    //     page: newValue,
-    //   })
-    // }
-  }
-
-  function handleDragEnd(event) {
-    setActiveId(null)
-    const { over } = event
-
-    if (over) {
-      console.log("handleDragEnd")
-    }
-  }
   return (
     <div>
       <Layout className="overflow-hidden w-full h-dvh ">
@@ -62,25 +35,14 @@ export default function Home() {
           <Header className="h-16 bg-white border-solid border-b border-slate-200">
             <TopMenu />
           </Header>
-          <DndContext
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-            onDragOver={handleDragOver}
-          >
-            <PageProvider>
-              <Layout style={contentStyle}>
-                <Sider width="20%" className="bg-white">
-                  <ComponentsList activeId={activeId} />
-                </Sider>
-                <Content>
-                  <PhonePage />
-                </Content>
-                <Sider width="27%" className="bg-white">
-                  <RightSettings />
-                </Sider>
-              </Layout>
-            </PageProvider>
-          </DndContext>
+          <PageProvider>
+            <Layout style={contentStyle}>
+              <DragScale />
+              <Sider width="27%" className="bg-white">
+                <RightSettings />
+              </Sider>
+            </Layout>
+          </PageProvider>
         </Layout>
       </Layout>
     </div>

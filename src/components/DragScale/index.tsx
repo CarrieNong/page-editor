@@ -29,9 +29,12 @@ const DragScale = () => {
   }
 
   function handleDragOver(event) {
+    console.log("handleDragOver", event)
     const { over } = event
     let componentList = page.componentList
     if (over) {
+      const addCom = page.componentList.filter((t) => t.name == "AddCom")
+      if (addCom.length) return
       componentList.push({ name: "AddCom" })
       dispatch({
         type: "added",

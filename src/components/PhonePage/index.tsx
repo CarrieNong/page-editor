@@ -22,7 +22,7 @@ const componentsMap = {
 const PhonePage = () => {
   const page = usePage()
   const { setNodeRef } = useDroppable({
-    id: "unique-id",
+    id: "phone",
   })
 
   return (
@@ -37,10 +37,27 @@ const PhonePage = () => {
         <Image src={topUrl} alt="phone" />
         <HeaderCom />
         {page.componentList.map((component, index) => {
-          const Component = componentsMap[component.name]
-          return <Component key={index} />
+          const renderCom = componentsMap[component.name]
+          return (
+            <DroppableItem
+              key={index}
+              Component={renderCom}
+              index={index}
+              id={component.name}
+            />
+          )
         })}
       </div>
+    </div>
+  )
+}
+
+const DroppableItem = ({ id, Component, index }) => {
+  const { setNodeRef } = useDroppable({ id: `${id}${index}` })
+
+  return (
+    <div ref={setNodeRef}>
+      <Component />
     </div>
   )
 }

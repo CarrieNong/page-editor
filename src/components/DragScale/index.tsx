@@ -96,13 +96,6 @@ const DragScale = () => {
 
   function handleDragEnd(event) {
     setActiveId(null)
-    dispatch({
-      type: "inserted",
-      insertInfo: {
-        index: null,
-        position: null,
-      },
-    })
     const { over } = event
 
     if (over) {
@@ -111,25 +104,36 @@ const DragScale = () => {
       const tabCom = page.componentList.filter((t) => t.name == "TabCom")
       const existTabCom = comName == "TabCom" && tabCom.length
       if (existTabCom) {
+        //插入的新组件是底部导航，并且底部导航存在
         setShowWarning(true) // 触发警告消息
-        dispatch({
-          type: "changed",
-          page: {
-            ...page,
-            componentList,
-          },
-        })
       } else {
-        componentList.push({
+        const newCom = {
           name: comName,
           id: `${comName}${componentList.length + 1}`,
-        })
+        }
+        const position = page.insertInfo.position
+        if (position == "phone") {
+          componentList.push(newCom)
+        } else {
+          const index =
+            position === "top"
+              ? page.insertInfo.index
+              : page.insertInfo.index + 1
+          componentList.splice(index, 0, newCom)
+        }
         dispatch({
           type: "added",
           componentList,
         })
       }
     }
+    dispatch({
+      type: "inserted",
+      insertInfo: {
+        index: null,
+        position: null,
+      },
+    })
   }
   return (
     <DndContext

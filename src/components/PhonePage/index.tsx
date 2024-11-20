@@ -39,14 +39,10 @@ const PhonePage = () => {
         {page.componentList.map((component, index) => {
           const renderCom = componentsMap[component.name]
           return (
-            <section>
+            <section key={index}>
               {page.insertInfo.index === index &&
                 page.insertInfo.position === "top" && <AddCom />}
-              <DroppableItem
-                key={index}
-                Component={renderCom}
-                id={component.id}
-              />
+              <DroppableItem Component={renderCom} id={component.id} />
 
               {page.insertInfo.index === index &&
                 page.insertInfo.position === "bottom" && <AddCom />}

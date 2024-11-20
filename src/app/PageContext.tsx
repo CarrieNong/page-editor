@@ -41,10 +41,8 @@ function pageReducer(page, action) {
       return { ...page, ...action.page }
     }
     case "deleted": {
-      let componentList = page.componentList.filter(
-        (t) => t.name !== action.name
-      )
-      return { ...page, componentList }
+      page.componentList.splice(action.index, 1)
+      return { ...page }
     }
     default: {
       throw Error("Unknown action: " + action.type)

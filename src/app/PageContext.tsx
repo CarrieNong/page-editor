@@ -25,6 +25,12 @@ export function usePageDispatch() {
 
 function pageReducer(page, action) {
   switch (action.type) {
+    case "inserted": {
+      return {
+        ...page,
+        insertInfo: action.insertInfo,
+      }
+    }
     case "added": {
       return {
         ...page,
@@ -47,6 +53,10 @@ function pageReducer(page, action) {
 }
 
 const initialPage = {
+  insertInfo: {
+    index: null,
+    position: null,
+  },
   pageSetting: {
     title: "页面标题",
     isBack: true,

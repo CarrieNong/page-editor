@@ -39,21 +39,29 @@ const PhonePage = () => {
         {page.componentList.map((component, index) => {
           const renderCom = componentsMap[component.name]
           return (
-            <DroppableItem
-              key={index}
-              Component={renderCom}
-              index={index}
-              id={component.name}
-            />
+            <section>
+              {page.insertInfo.index === index &&
+                page.insertInfo.position === "top" && <AddCom />}
+              <DroppableItem
+                key={index}
+                Component={renderCom}
+                id={component.id}
+              />
+
+              {page.insertInfo.index === index &&
+                page.insertInfo.position === "bottom" && <AddCom />}
+            </section>
           )
         })}
+        {page.insertInfo.index === -1 &&
+          page.insertInfo.position === "phone" && <AddCom />}
       </div>
     </div>
   )
 }
 
-const DroppableItem = ({ id, Component, index }) => {
-  const { setNodeRef } = useDroppable({ id: `${id}${index}` })
+const DroppableItem = ({ id, Component }) => {
+  const { setNodeRef } = useDroppable({ id: id })
 
   return (
     <div ref={setNodeRef}>

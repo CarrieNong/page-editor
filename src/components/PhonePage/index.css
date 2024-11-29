@@ -17,3 +17,7 @@
 .phone-component:hover{
     border:1px dashed #1677ff;
 }
+
+.active-component{
+    border:1.5px solid #1677ff;
+}

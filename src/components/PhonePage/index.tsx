@@ -1,5 +1,6 @@
 import Image from "next/image"
 import React from "react"
+import { useState, useEffect } from "react"
 import topUrl from "@/app/assets/images/phoneTop.png"
 import AddCom from "../PhoneComponents/AddCom"
 import HeaderCom from "../PhoneComponents/HeaderCom"
@@ -25,6 +26,13 @@ const PhonePage = () => {
     id: "phone",
   })
 
+  const [activeIndex, setActiveIndex] = useState(null)
+
+  const chooseComponent = (index) => {
+    console.log(index)
+    setActiveIndex(index)
+  }
+
   return (
     <div className="w-1/2 h-full overflow-y-scroll m-auto content">
       <div
@@ -40,12 +48,17 @@ const PhonePage = () => {
           const renderCom = componentsMap[component.name]
           return (
             <section
+              onClick={() => {
+                chooseComponent(index)
+              }}
               key={index}
               className={`${
                 component.name === "TabCom"
                   ? "absolute bottom-0 left-0 w-full bg-white"
                   : ""
-              } phone-component`}
+              } ${
+                activeIndex === index ? "active-component" : "phone-component"
+              }`}
             >
               {page.insertInfo.index === index &&
                 page.insertInfo.position === "top" && <AddCom />}

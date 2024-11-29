@@ -33,7 +33,7 @@ const tabs = [
 
 const TabCom = () => {
   return (
-    <section className="absolute bottom-0 left-0 w-full bg-white">
+    <section>
       <TabBar>
         {tabs.map((item) => (
           <TabBar.Item key={item.key} icon={item.icon} title={item.title} />

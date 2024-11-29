@@ -39,14 +39,13 @@ const SortableItem = ({ item, confirmDelete }) => {
     <List.Item
       ref={setNodeRef}
       style={style}
-      {...attributes}
-      {...listeners}
       actions={[
         <Popconfirm
           title="您确定要删除该组件吗?"
           okText="确定"
           cancelText="取消"
-          onConfirm={() => {
+          onConfirm={(e) => {
+            e.stopPropagation()
             confirmDelete()
           }}
           style={{ cursor: "pointer" }}
@@ -55,7 +54,9 @@ const SortableItem = ({ item, confirmDelete }) => {
         </Popconfirm>,
       ]}
     >
-      <div>{componentsMap[item.name]}</div>
+      <div {...attributes} {...listeners}>
+        {componentsMap[item.name]}
+      </div>
     </List.Item>
   )
 }

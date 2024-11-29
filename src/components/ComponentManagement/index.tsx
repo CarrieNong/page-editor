@@ -7,7 +7,6 @@ import {
   useSensor,
   useSensors,
   PointerSensor,
-  pointerWithin,
 } from "@dnd-kit/core"
 import {
   arrayMove,
@@ -27,34 +26,34 @@ const componentsMap = {
 // 单个可排序的项目
 const SortableItem = ({ item, confirmDelete }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: item.id })
+    useSortable({ id: item.id, disabled: item.name === "TabCom" })
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    cursor: "grab",
+    cursor: item.name === "TabCom" ? "not-allowed" : "grab",
   }
 
   return (
     <List.Item
       ref={setNodeRef}
       style={style}
+      {...attributes}
+      {...(item.name === "TabCom" ? {} : listeners)}
       actions={[
         <Popconfirm
           title="您确定要删除该组件吗?"
           okText="确定"
           cancelText="取消"
-          onConfirm={(e) => {
-            e.stopPropagation()
+          onConfirm={() => {
             confirmDelete()
           }}
-          style={{ cursor: "pointer" }}
         >
           <DeleteFilled />
         </Popconfirm>,
       ]}
     >
-      <div {...attributes} {...listeners}>
+      <div className={item.name === "TabCom" ? "opacity-50" : "opacity-100"}>
         {componentsMap[item.name]}
       </div>
     </List.Item>

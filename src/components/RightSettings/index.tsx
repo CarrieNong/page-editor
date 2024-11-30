@@ -4,6 +4,11 @@ import PageSetting from "../PageSetting"
 import ComponentManagement from "../ComponentManagement"
 import ComponentSetting from "../ComponentSetting"
 import { useState } from "react"
+import {
+  usePage,
+  usePageDispatch,
+  activeComponentChange,
+} from "@/app/PageContext"
 const settingList = [
   {
     text: "页面设置",
@@ -29,10 +34,22 @@ const settingComponents = {
 }
 
 const RightSettings = () => {
+  const page = usePage()
+  const dispatch = usePageDispatch()
   const [activeSetting, setActiveSetting] = useState("PageSetting")
+
+  activeComponentChange((value) => {
+    if (value) {
+      setActiveSetting("ComponentSetting")
+    }
+  })
 
   const changeSetting = (name) => {
     setActiveSetting(name)
+    dispatch({
+      type: "set",
+      activeComponent: null,
+    })
   }
 
   const ActiveComponent = settingComponents[activeSetting]
@@ -40,17 +57,23 @@ const RightSettings = () => {
     <section relative>
       <Flex vertical="true" gap="small" className="absolute top-5 -left-28">
         {settingList.map((setting) => (
-          <Button
-            type={setting.name === activeSetting ? "primary" : "default"}
-            key={setting.name}
-            size="small"
-            icon={setting.icon}
-            onClick={() => {
-              changeSetting(setting.name)
-            }}
-          >
-            {setting.text}
-          </Button>
+          <div>
+            {(setting.name === "ComponentSetting"
+              ? page.activeComponent
+              : true) && (
+              <Button
+                type={setting.name === activeSetting ? "primary" : "default"}
+                key={setting.name}
+                size="small"
+                icon={setting.icon}
+                onClick={() => {
+                  changeSetting(setting.name)
+                }}
+              >
+                {setting.text}
+              </Button>
+            )}
+          </div>
         ))}
       </Flex>
       <section className="p-5">

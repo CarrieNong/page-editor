@@ -1,6 +1,5 @@
 import Image from "next/image"
 import React from "react"
-import { useState, useEffect } from "react"
 import topUrl from "@/app/assets/images/phoneTop.png"
 import AddCom from "../PhoneComponents/AddCom"
 import HeaderCom from "../PhoneComponents/HeaderCom"
@@ -9,7 +8,7 @@ import TitleCom from "../PhoneComponents/TitleCom"
 import TabCom from "../PhoneComponents/TabCom"
 import ProductCom from "../PhoneComponents/ProductCom"
 import "./index.css"
-import { usePage } from "@/app/PageContext"
+import { usePage, usePageDispatch } from "@/app/PageContext"
 import { useDroppable } from "@dnd-kit/core"
 
 const componentsMap = {
@@ -22,15 +21,16 @@ const componentsMap = {
 
 const PhonePage = () => {
   const page = usePage()
+  const dispatch = usePageDispatch()
   const { setNodeRef } = useDroppable({
     id: "phone",
   })
 
-  const [activeIndex, setActiveIndex] = useState(null)
-
-  const chooseComponent = (index) => {
-    console.log(index)
-    setActiveIndex(index)
+  const chooseComponent = (id) => {
+    dispatch({
+      type: "set",
+      activeComponent: id,
+    })
   }
 
   return (
@@ -49,7 +49,7 @@ const PhonePage = () => {
           return (
             <section
               onClick={() => {
-                chooseComponent(index)
+                chooseComponent(component.id)
               }}
               key={index}
               className={`${
@@ -57,7 +57,9 @@ const PhonePage = () => {
                   ? "absolute bottom-0 left-0 w-full bg-white"
                   : ""
               } ${
-                activeIndex === index ? "active-component" : "phone-component"
+                component.id === page.activeComponent
+                  ? "active-component"
+                  : "phone-component"
               }`}
             >
               {page.insertInfo.index === index &&

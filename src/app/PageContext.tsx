@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react"
+import { createContext, useContext, useReducer, useEffect } from "react"
 
 const PageContext = createContext(null)
 const PageDispatchContext = createContext(null)
@@ -44,10 +44,22 @@ function pageReducer(page, action) {
       page.componentList.splice(action.index, 1)
       return { ...page }
     }
+    case "set": {
+      page.activeComponent = action.activeComponent
+      return { ...page }
+    }
     default: {
       throw Error("Unknown action: " + action.type)
     }
   }
+}
+
+export function activeComponentChange(callback) {
+  const { activeComponent } = useContext(PageContext)
+
+  useEffect(() => {
+    callback(activeComponent)
+  }, [activeComponent, callback])
 }
 
 const initialPage = {
@@ -61,5 +73,6 @@ const initialPage = {
     isDefaultColor: "2",
     bgColor: "#f7f8fa",
   },
+  activeComponent: null,
   componentList: [],
 }

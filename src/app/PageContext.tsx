@@ -41,8 +41,15 @@ function pageReducer(page, action) {
       return { ...page, ...action.page }
     }
     case "deleted": {
-      page.componentList.splice(action.index, 1)
-      return { ...page }
+      // 检查 componentList 是否已经发生变化
+      const newComponentList = [...page.componentList]
+      newComponentList.splice(action.index, 1)
+
+      // 如果删除的组件与现有列表不同，才触发状态更新
+      if (newComponentList.length !== page.componentList.length) {
+        return { ...page, componentList: newComponentList }
+      }
+      return page // 如果没有变化，不更新状态
     }
     case "set": {
       page.activeComponent = action.activeComponent

@@ -25,6 +25,7 @@ const componentsMap = {
 
 // 单个可排序的项目
 const SortableItem = ({ item, confirmDelete }) => {
+  const isDisabled = item.name === "TabCom"
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id, disabled: item.name === "TabCom" })
 
@@ -37,14 +38,12 @@ const SortableItem = ({ item, confirmDelete }) => {
   return (
     <List.Item
       ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...(item.name === "TabCom" ? {} : listeners)}
       actions={[
         <Popconfirm
           title="您确定要删除该组件吗?"
           okText="确定"
           cancelText="取消"
+          style={{ cursor: "pointer" }}
           onConfirm={() => {
             confirmDelete()
           }}
@@ -53,7 +52,12 @@ const SortableItem = ({ item, confirmDelete }) => {
         </Popconfirm>,
       ]}
     >
-      <div className={item.name === "TabCom" ? "opacity-50" : "opacity-100"}>
+      <div
+        className={`opacity-${isDisabled ? "50" : "100"} w-full`}
+        style={style}
+        {...attributes}
+        {...(isDisabled ? {} : listeners)}
+      >
         {componentsMap[item.name]}
       </div>
     </List.Item>

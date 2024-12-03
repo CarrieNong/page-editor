@@ -1,15 +1,11 @@
 "use client"
 import { Layout } from "antd"
-const { Header, Sider, Content } = Layout
+const { Header, Sider } = Layout
 import { BgColorsOutlined } from "@ant-design/icons"
 import TopMenu from "@/components/TopMenu"
 import DragScale from "@/components/DragScale"
-import ComponentsList from "@/components/ComponentsList"
-import PhonePage from "@/components/PhonePage"
 import RightSettings from "@/components/RightSettings"
 import { PageProvider } from "./PageContext"
-import { DndContext } from "@dnd-kit/core"
-import { useState } from "react"
 
 const contentStyle: React.CSSProperties = {
   height: "calc(100vh-64)",

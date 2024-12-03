@@ -6,6 +6,7 @@ import PhonePage from "@/components/PhonePage"
 import { usePage, usePageDispatch } from "@/app/PageContext"
 import { DndContext, MouseSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { useState, useEffect } from "react"
+import { initialComponentData } from "./initialComponentData"
 
 const DragScale = () => {
   const page = usePage()
@@ -110,6 +111,7 @@ const DragScale = () => {
         const newCom = {
           name: comName,
           id: `${comName}${componentList.length + 1}`,
+          data: initialComponentData[comName],
         }
         const position = page.insertInfo.position
         if (position == "phone") {

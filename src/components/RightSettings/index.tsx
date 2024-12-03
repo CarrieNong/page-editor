@@ -56,8 +56,8 @@ const RightSettings = () => {
   return (
     <section relative>
       <Flex vertical="true" gap="small" className="absolute top-5 -left-28">
-        {settingList.map((setting) => (
-          <div>
+        {settingList.map((setting, index) => (
+          <div key={index}>
             {(setting.name === "ComponentSetting"
               ? page.activeComponent
               : true) && (

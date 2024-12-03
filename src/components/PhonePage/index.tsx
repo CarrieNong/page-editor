@@ -64,7 +64,11 @@ const PhonePage = () => {
             >
               {page.insertInfo.index === index &&
                 page.insertInfo.position === "top" && <AddCom />}
-              <DroppableItem Component={renderCom} id={component.id} />
+              <DroppableItem
+                Component={renderCom}
+                data={component.data}
+                id={component.id}
+              />
 
               {page.insertInfo.index === index &&
                 page.insertInfo.position === "bottom" && <AddCom />}
@@ -78,12 +82,12 @@ const PhonePage = () => {
   )
 }
 
-const DroppableItem = ({ id, Component }) => {
+const DroppableItem = ({ id, Component, data }) => {
   const { setNodeRef } = useDroppable({ id: id })
 
   return (
     <div ref={setNodeRef}>
-      <Component />
+      <Component data={data} />
     </div>
   )
 }

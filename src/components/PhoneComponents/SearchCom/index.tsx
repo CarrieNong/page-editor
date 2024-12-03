@@ -1,9 +1,19 @@
 import { SearchBar } from "antd-mobile"
 
-const SearchCom = () => {
+const SearchCom = ({ data }) => {
   return (
-    <div className="p-2 bg-white">
-      <SearchBar placeholder="请输入内容" />
+    <div
+      className="p-2"
+      style={{
+        backgroundColor: data.bgColor,
+      }}
+    >
+      <SearchBar
+        placeholder={data.hotWord}
+        style={{
+          "--height": `${data.boxHeight}px`,
+        }}
+      />
     </div>
   )
 }

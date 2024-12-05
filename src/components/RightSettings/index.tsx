@@ -4,6 +4,7 @@ import PageSetting from "../PageSetting"
 import ComponentManagement from "../ComponentManagement"
 import ComponentSetting from "../ComponentSetting"
 import { useState } from "react"
+import "./index.css"
 import {
   usePage,
   usePageDispatch,
@@ -76,7 +77,7 @@ const RightSettings = () => {
           </div>
         ))}
       </Flex>
-      <section className="p-5">
+      <section className="p-5 active-component-setting overflow-y-scroll">
         {ActiveComponent && <ActiveComponent />}
       </section>
     </section>

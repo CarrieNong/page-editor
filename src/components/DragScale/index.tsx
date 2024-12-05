@@ -108,9 +108,19 @@ const DragScale = () => {
         //插入的新组件是底部导航，并且底部导航存在
         setShowWarning(true) // 触发警告消息
       } else {
+        // 提取数字并找出最大值
+        const maxNumber = componentList.length
+          ? Math.max(
+              ...componentList.map((item) => {
+                const match = item.id.match(/\d+/) // 匹配 id 属性中的数字
+                return match ? parseInt(match[0], 10) : 0 // 如果没有匹配到数字，返回 0
+              })
+            )
+          : 0
+
         const newCom = {
           name: comName,
-          id: `${comName}${componentList.length + 1}`,
+          id: `${comName}${maxNumber + 1}`,
           data: initialComponentData[comName],
         }
         const position = page.insertInfo.position
@@ -123,6 +133,7 @@ const DragScale = () => {
               : page.insertInfo.index + 1
           componentList.splice(index, 0, newCom)
         }
+        console.log("componentList", componentList)
         dispatch({
           type: "added",
           componentList,

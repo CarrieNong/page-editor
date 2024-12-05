@@ -33,28 +33,26 @@ const productList = [
 ]
 
 /*
-  param big/two/three/list/scroll
+  param two/three/list/scroll
 */
-const showMode = "list"
 
 const modeList = {
-  big: 1,
   two: 2,
   three: 3,
   list: 1,
 }
 
-function Card({ product }) {
+function Card({ product, mode }) {
   return (
-    <div className={showMode === "list" ? "w-full flex flex-row" : ""}>
+    <div className={mode === "list" ? "w-full flex flex-row" : ""}>
       <div
         className={
-          showMode === "list" ? "w-1/3 mr-2" : "rounded-sm overflow-hidden"
+          mode === "list" ? "w-1/3 mr-2" : "rounded-sm overflow-hidden"
         }
       >
-        <Image src={product.src} width={showMode === "list" ? 112 : ""} />
+        <Image src={product.src} width={mode === "list" ? 112 : ""} />
       </div>
-      <div className={showMode === "list" ? "w-2/3" : ""}>
+      <div className={mode === "list" ? "w-2/3" : ""}>
         <div className="py-1">
           <p className="text-sm truncate">{product.title}</p>
           <p className="mt-1 text-xs text-slate-400 truncate">{product.desc}</p>
@@ -70,22 +68,22 @@ function Card({ product }) {
   )
 }
 
-const ProductCom = () => {
+const ProductCom = ({ data }) => {
   return (
     <section className="bg-white p-4">
-      {showMode == "scroll" ? (
+      {data.mode == "scroll" ? (
         <div className="flex w-full overflow-x-scroll">
           {productList.map((product) => (
             <div className="w-1/4 mr-2" key={product.id}>
-              <Card product={product} />
+              <Card product={product} mode={data.mode} />
             </div>
           ))}
         </div>
       ) : (
-        <Grid columns={modeList[showMode]} gap={8}>
+        <Grid columns={modeList[data.mode]} gap={8}>
           {productList.map((product) => (
             <Grid.Item key={product.id}>
-              <Card product={product} />
+              <Card product={product} mode={data.mode} />
             </Grid.Item>
           ))}
         </Grid>

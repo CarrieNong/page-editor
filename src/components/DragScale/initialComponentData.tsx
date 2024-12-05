@@ -26,4 +26,7 @@ export const initialComponentData = {
     ],
     navData: [],
   },
+  ProductCom: {
+    mode: "list",
+  },
 }

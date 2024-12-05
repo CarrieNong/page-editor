@@ -1,4 +1,4 @@
-import { Badge, TabBar } from "antd-mobile"
+import { TabBar } from "antd-mobile"
 import {
   AppOutline,
   MessageOutline,

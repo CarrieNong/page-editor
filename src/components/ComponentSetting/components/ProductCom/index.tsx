@@ -1,5 +1,6 @@
 import { Form, Radio } from "antd"
 import { usePage, usePageDispatch } from "@/app/PageContext"
+import { useEffect } from "react"
 
 type FieldType = {
   mode?: string
@@ -25,11 +26,16 @@ const modeList = [
 ]
 
 const ProductCom = () => {
+  const [form] = Form.useForm()
   const page = usePage()
   const dispatch = usePageDispatch()
   const comData = page.componentList.filter((com) => {
     return com.id === page.activeComponent
   })[0].data
+
+  useEffect(() => {
+    form.setFieldsValue(comData) // 动态更新表单的值
+  }, [comData, form])
 
   const onValuesChange = (changedValues, allValues) => {
     let componentList = page.componentList
@@ -59,9 +65,8 @@ const ProductCom = () => {
         商品
       </h1>
       <Form
-        name="basic"
+        form={form}
         wrapperCol={{ span: 16 }}
-        initialValues={comData}
         autoComplete="off"
         onValuesChange={onValuesChange}
       >

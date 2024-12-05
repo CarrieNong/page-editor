@@ -133,7 +133,6 @@ const DragScale = () => {
               : page.insertInfo.index + 1
           componentList.splice(index, 0, newCom)
         }
-        console.log("componentList", componentList)
         dispatch({
           type: "added",
           componentList,

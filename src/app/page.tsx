@@ -1,18 +1,52 @@
 "use client"
-import { Layout } from "antd"
-const { Header, Sider } = Layout
-import { BgColorsOutlined } from "@ant-design/icons"
-import TopMenu from "@/components/TopMenu"
-import DragScale from "@/components/DragScale"
-import RightSettings from "@/components/RightSettings"
-import { PageProvider } from "./PageContext"
+import { Table, Layout } from "antd"
+const { Header, Sider, Content } = Layout
+import { UnorderedListOutlined } from "@ant-design/icons"
+import { useRouter } from "next/navigation"
+
+const dataSource = [
+  {
+    key: "1",
+    name: "胡彦斌",
+    age: 32,
+    address: "西湖区湖底公园1号",
+  },
+  {
+    key: "2",
+    name: "胡彦祖",
+    age: 42,
+    address: "西湖区湖底公园1号",
+  },
+]
+
+const columns = [
+  {
+    title: "姓名",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "年龄",
+    dataIndex: "age",
+    key: "age",
+  },
+  {
+    title: "住址",
+    dataIndex: "address",
+    key: "address",
+  },
+]
 
 const contentStyle: React.CSSProperties = {
-  height: "calc(100vh-64)",
-  backgroundColor: "#f7f8fa",
+  margin: "40px",
 }
 
 export default function Home() {
+  const router = useRouter()
+  const gotoEditPage = (index) => {
+    router.push(`/page-editor?id=${index}`)
+  }
+
   return (
     <div>
       <Layout className="overflow-hidden w-full h-dvh ">
@@ -21,24 +55,27 @@ export default function Home() {
           className="bg-white border-solid border-r border-slate-200 text-center"
           style={{ color: "#1677ff" }}
         >
-          <BgColorsOutlined
+          <UnorderedListOutlined
             className="mt-16 mb-1"
             style={{ fontSize: "30px" }}
           />
-          <p className="text-sm font-bold">装修</p>
+          <p className="text-sm font-bold">列表</p>
         </Sider>
         <Layout>
-          <Header className="h-16 bg-white border-solid border-b border-slate-200">
-            <TopMenu />
-          </Header>
-          <PageProvider>
-            <Layout style={contentStyle}>
-              <DragScale />
-              <Sider width="27%" className="bg-white">
-                <RightSettings />
-              </Sider>
-            </Layout>
-          </PageProvider>
+          <Header className="h-16 bg-white border-solid border-b border-slate-200"></Header>
+          <Content style={contentStyle}>
+            <Table
+              dataSource={dataSource}
+              columns={columns}
+              onRow={(record, index) => {
+                return {
+                  onClick: () => {
+                    gotoEditPage(index)
+                  },
+                }
+              }}
+            />
+          </Content>
         </Layout>
       </Layout>
     </div>
